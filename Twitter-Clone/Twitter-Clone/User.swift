@@ -14,6 +14,7 @@ class User
     let profileImageUrl: String
     let location: String
     
+    
     init(name: String, profileImageUrl: String, location: String)
     {
         self.name = name

@@ -17,8 +17,6 @@ class HomeViewController: UIViewController, UITableViewDataSource
         }
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTableView()
@@ -62,6 +60,12 @@ extension HomeViewController
         let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath)
         let tweet = self.dataSource[indexPath.row]
         tweetCell.textLabel?.text = tweet.text
+        
+        
+        if let user = tweet.user{
+            tweetCell.detailTextLabel?.text = user.name
+        }
+        
         return tweetCell
         
     }
