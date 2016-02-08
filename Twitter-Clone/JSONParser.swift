@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias JSONParserCompletion = (success: Bool, tweets: [Tweet]? -> ()
+typealias JSONParserCompletion = (success: Bool, tweets: [Tweet]?) -> ()
 
 class JSONParser
 {
@@ -22,7 +22,10 @@ class JSONParser
                 
                     for tweetJSON in rootObject {
                         
-                        if let text = tweetJSON["text"] as? String, id = tweetJSON["id_str"] as? String, userJSON = tweetJSON["user"] as? [String: AnyObject]{
+                        if let
+                            text = tweetJSON["text"] as? String,
+                            id = tweetJSON["id_str"] as? String,
+                            userJSON = tweetJSON["user"] as? [String: AnyObject]{
                                 
                             let user = self.userFromTweetJSON(userJSON)
                             let tweet = Tweet(text: text, id: id, user: user)
@@ -35,6 +38,8 @@ class JSONParser
                     completion (success: false, tweets: nil)
         }
         } catch _ { completion ( success: false, tweets: nil)
+            
+        }
         
     }
     //Mark helper Functions
@@ -42,10 +47,10 @@ class JSONParser
     class func userFromTweetJSON(tweetJSON: [String: AnyObject]) -> User
     {
         guard let name = tweetJSON["name"] as? String else { fatalError("Failed to parse the name. Something is wrong with JSON") }
-        guard let profileImageUrl = tweetJSON("profile_image_url") as? String else { fatalError("Failed to patse the profile image url. Something is wrong") }
-        guard let location = tweetJSON("location") as? String else { fatalError("Failed to parse the location. Something is wrong") }
+        guard let profileImageUrl = tweetJSON["profile_image_url"] as? String else { fatalError("Failed to patse the profile image url. Something is wrong") }
+        guard let location = tweetJSON["location"] as? String else { fatalError("Failed to parse the location. Something is wrong") }
         
-        return user(name: name, profileImageUrl: profileImageUrl, location: location)
+        return User(name: name, profileImageUrl: profileImageUrl, location: location)
     }
 
     // Mark: first day, load JSON from bundle.

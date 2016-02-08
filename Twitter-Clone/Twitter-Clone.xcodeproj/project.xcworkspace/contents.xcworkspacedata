@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Twitter Clone.xcodeproj">
+      location = "self:Twitter-Clone.xcodeproj">
    </FileRef>
 </Workspace>
