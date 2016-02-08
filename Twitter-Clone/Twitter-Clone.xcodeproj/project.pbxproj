@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AFC3799C1C693A77007846BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3799B1C693A77007846BA /* AppDelegate.swift */; };
-		AFC3799E1C693A77007846BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC3799D1C693A77007846BA /* HomeViewController.swift */; };
 		AFC379A11C693A77007846BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFC3799F1C693A77007846BA /* Main.storyboard */; };
 		AFC379A31C693A77007846BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFC379A21C693A77007846BA /* Assets.xcassets */; };
 		AFC379A61C693A77007846BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFC379A41C693A77007846BA /* LaunchScreen.storyboard */; };
@@ -16,12 +15,12 @@
 		AFC379B21C693B13007846BA /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379B11C693B13007846BA /* JSONParser.swift */; };
 		AFC379B71C693B49007846BA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379B61C693B49007846BA /* User.swift */; };
 		AFC379BB1C693BB7007846BA /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379BA1C693BB7007846BA /* Tweet.swift */; };
+		AFC379BD1C693CC8007846BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379BC1C693CC8007846BA /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AFC379981C693A77007846BA /* Twitter-Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Twitter-Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFC3799B1C693A77007846BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		AFC3799D1C693A77007846BA /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AFC379A01C693A77007846BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AFC379A21C693A77007846BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFC379A51C693A77007846BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -30,6 +29,7 @@
 		AFC379B11C693B13007846BA /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 		AFC379B61C693B49007846BA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFC379BA1C693BB7007846BA /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		AFC379BC1C693CC8007846BA /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +113,7 @@
 		AFC379B91C693B86007846BA /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				AFC3799D1C693A77007846BA /* HomeViewController.swift */,
+				AFC379BC1C693CC8007846BA /* HomeViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -190,7 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFC3799E1C693A77007846BA /* HomeViewController.swift in Sources */,
+				AFC379BD1C693CC8007846BA /* HomeViewController.swift in Sources */,
 				AFC379BB1C693BB7007846BA /* Tweet.swift in Sources */,
 				AFC3799C1C693A77007846BA /* AppDelegate.swift in Sources */,
 				AFC379B71C693B49007846BA /* User.swift in Sources */,
