@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     var dataSource = [Tweet]() {
         didSet {
-            //
+            tableView.reloadData()
         }
     }
     
@@ -22,16 +22,13 @@ class HomeViewController: UIViewController, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTableView()
-        
-        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
-            
-        
-        }
+     
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
+        self.update()
     }
 
     override func didReceiveMemoryWarning()
@@ -66,6 +63,7 @@ extension HomeViewController
         let tweet = self.dataSource[indexPath.row]
         tweetCell.textLabel?.text = tweet.text
         return tweetCell
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int

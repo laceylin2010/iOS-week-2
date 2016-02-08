@@ -35,7 +35,7 @@ class JSONParser
                     }
                     
                     //completetion
-                    completion (success: false, tweets: nil)
+                    completion (success: true, tweets: tweets)
         }
         } catch _ { completion ( success: false, tweets: nil)
             
