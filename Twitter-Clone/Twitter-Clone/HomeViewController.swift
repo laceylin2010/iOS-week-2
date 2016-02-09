@@ -13,7 +13,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
     @IBOutlet weak var tableView: UITableView!
     var dataSource = [Tweet]() {
         didSet {
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
     }
     
@@ -42,12 +42,22 @@ class HomeViewController: UIViewController, UITableViewDataSource
     func update()
     {
         
-        API.shared.login { (account) -> () in
-            if let account = account {
-                print(account)
+        API.shared.GETTweets { (tweets) -> () in
+            if let tweets = tweets {
+                self.dataSource = tweets
+//                for tweet in tweets {
+//                  print(tweet.text)
+//                    }
+                }
+            
+        API.shared.GETOAuthUser { (user) -> () in
+                if let user = user {
+                    print(user.name)
+                }
             }
-        }
-//        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
+    
+            
+            //        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
 //            if success  {
 //                if let tweets = tweets {
 //                    self.dataSource = tweets
@@ -55,12 +65,14 @@ class HomeViewController: UIViewController, UITableViewDataSource
 //            }
 //            
 //        }
-    }
+        }
 
+    }
 }
 
 extension HomeViewController
 {
+    
     func configureCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell
     {
         let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath)

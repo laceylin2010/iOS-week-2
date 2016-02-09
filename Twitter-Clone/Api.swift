@@ -15,7 +15,61 @@ class API
     static let shared = API()
     private init() {}
     
-    func login(completion: (account: ACAccount?) -> ())
+    var account: ACAccount?
+    
+    func GETTweets(completion: (tweets: [Tweet]?) -> ())
+    {
+        if let _ = self.account
+        {
+            self.updateTimeline(completion)
+        } else {
+            self.login ({ (account) -> () in
+            if let account = account {
+                //set the account
+                API.shared.account = account
+    
+                //Make the tweets call
+        self.updateTimeline(completion)
+        } else { print("Account is nil.") }
+
+        })
+      }
+    }
+    
+        //
+    
+    private func updateTimeline(completion: (tweets: [Tweet]?) -> ())
+    {
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
+        
+        request.account = self.account
+        request.performRequestWithHandler { (data, response, error) -> Void in
+        
+            if let _ = error {
+            print("ERROR: SLRequesttyoe .GET could not be completed")
+                NSOperationQueue.mainQueue().addOperationWithBlock { completion( tweets: nil) } ; return
+                completion(tweets: nil)
+        }
+        
+        switch response.statusCode {
+        case 200...299:
+        
+            JSONParser.tweetJSONFrom(data, completion: { (success, tweets) -> () in
+            NSOperationQueue.mainQueue().addOperationWithBlock ({ completion(tweets: tweets) })
+            })
+            
+        default: break
+        print("ERORR: SLRequest type .GET returned status code \(response.statusCode)")
+        NSOperationQueue.mainQueue().addOperationWithBlock { completion (tweets: nil) }
+
+        }
+        
+         
+        }
+    }
+
+    
+    private func login(completion: (account: ACAccount?) -> ())
     {
         let accountStore = ACAccountStore()
         let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
@@ -46,5 +100,35 @@ class API
             
         }
     }
+
+func GETOAuthUser(completion: (user: User?) -> ())
+{
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
     
+    request.account = self.account
+    request.performRequestWithHandler { (data, response, error) -> Void in
+        
+        if let _ = error {
+        NSOperationQueue.mainQueue().addOperationWithBlock{ completion(user: nil) }
+        return
+        }
+        
+        switch response.statusCode {
+        case 200...299:
+            
+            do {
+                if let userJSON = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? [String: AnyObject] {
+                    
+                    NSOperationQueue.mainQueue().addOperationWithBlock( { () -> Void in
+                        completion(user: JSONParser.userFromTweetJSON(userJSON))
+                })
+                }
+            } catch _ {}
+    
+                default: break
+         
+            }
+        }
+    
+    }
 }

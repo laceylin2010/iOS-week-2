@@ -15,10 +15,10 @@ class JSONParser
     class func tweetJSONFrom(data: NSData, completion: JSONParserCompletion)
     {
         let serializationQ = dispatch_queue_create("serializationQ", nil)
-        dispatch_async(serializationQ) { () Void in
+        dispatch_async(serializationQ) { () -> Void in
             //do your business here...
             
-        displatch_async(dispatch_get_main_queue(), { () -> Void in
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
             //call the completion here...
             })
         }
@@ -39,26 +39,24 @@ class JSONParser
                             userJSON = tweetJSON["user"] as? [String: AnyObject]{
     
                             let user = self.userFromTweetJSON(userJSON)
-                                let tweet = Tweet(text: text, id: id, user: user)
+                            let tweet = Tweet(text: text, id: id, user: user)
                                 
                             
                             tweets.append(tweet)
                         }
                     }
                     
-                    //completetion
-                    NSOperationQueue.mainQueue().addOperationWithBlock ({ () -> Void in
+                    //completion
+                    
                     completion (success: true, tweets: tweets)
-                    })
+                    }
 
             } catch _ {
-            NSOperationQueue.mainQueue().addOperationWithBlock ({ () -> Void in
                 completion ( success: false, tweets: nil)
-                })
+                }
             }
         }
-        
-    }
+    
     //Mark helper Functions
     
     class func userFromTweetJSON(tweetJSON: [String: AnyObject]) -> User
