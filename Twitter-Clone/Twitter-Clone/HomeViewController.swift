@@ -41,14 +41,20 @@ class HomeViewController: UIViewController, UITableViewDataSource
     
     func update()
     {
-        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
-            if success  {
-                if let tweets = tweets {
-                    self.dataSource = tweets
-                }
+        
+        API.shared.login { (account) -> () in
+            if let account = account {
+                print(account)
             }
-            
         }
+//        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
+//            if success  {
+//                if let tweets = tweets {
+//                    self.dataSource = tweets
+//                }
+//            }
+//            
+//        }
     }
 
 }

@@ -16,6 +16,7 @@
 		AFC379B71C693B49007846BA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379B61C693B49007846BA /* User.swift */; };
 		AFC379BB1C693BB7007846BA /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379BA1C693BB7007846BA /* Tweet.swift */; };
 		AFC379BD1C693CC8007846BA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC379BC1C693CC8007846BA /* HomeViewController.swift */; };
+		AFCE5FE91C6A60DD0005EC26 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCE5FE81C6A60DD0005EC26 /* Api.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		AFC379B61C693B49007846BA /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AFC379BA1C693BB7007846BA /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		AFC379BC1C693CC8007846BA /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		AFCE5FE81C6A60DD0005EC26 /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				AFC379B11C693B13007846BA /* JSONParser.swift */,
+				AFCE5FE81C6A60DD0005EC26 /* Api.swift */,
 			);
 			name = Utilites;
 			path = ..;
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFCE5FE91C6A60DD0005EC26 /* Api.swift in Sources */,
 				AFC379BD1C693CC8007846BA /* HomeViewController.swift in Sources */,
 				AFC379BB1C693BB7007846BA /* Tweet.swift in Sources */,
 				AFC3799C1C693A77007846BA /* AppDelegate.swift in Sources */,
@@ -344,6 +348,7 @@
 				AFC379AC1C693A77007846BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
