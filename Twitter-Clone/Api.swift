@@ -36,8 +36,6 @@ class API
       }
     }
     
-        //
-    
     private func updateTimeline(completion: (tweets: [Tweet]?) -> ())
     {
         let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
@@ -59,12 +57,8 @@ class API
             })
             
         default: break
-        print("ERORR: SLRequest type .GET returned status code \(response.statusCode)")
-        NSOperationQueue.mainQueue().addOperationWithBlock { completion (tweets: nil) }
-
-        }
+            }
         
-         
         }
     }
 
@@ -84,6 +78,15 @@ class API
             }
             
             if granted {
+                
+                
+                //
+                //                let accounts = accountStore.accountsWithAccountType(accountType)
+                //                for account in accounts {
+                //                    print(account.username)
+                //                }
+                //
+
                 if let account = accountStore.accountsWithAccountType(accountType).first as? ACAccount{
                     NSOperationQueue.mainQueue().addOperationWithBlock { completion(account: account) }
                     return
@@ -121,7 +124,7 @@ func GETOAuthUser(completion: (user: User?) -> ())
                     
                     NSOperationQueue.mainQueue().addOperationWithBlock( { () -> Void in
                         completion(user: JSONParser.userFromTweetJSON(userJSON))
-                })
+                    })
                 }
             } catch _ {}
     
