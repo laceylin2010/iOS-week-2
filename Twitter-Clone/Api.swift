@@ -29,8 +29,8 @@ class API
                 API.shared.account = account
     
                 //Make the tweets call
-        self.updateTimeline(completion)
-        } else { print("Account is nil.") }
+            self.updateTimeline(completion)
+            } else { print("Account is nil.") }
 
         })
       }
@@ -78,14 +78,6 @@ class API
             }
             
             if granted {
-                
-                
-                //
-                //                let accounts = accountStore.accountsWithAccountType(accountType)
-                //                for account in accounts {
-                //                    print(account.username)
-                //                }
-                //
 
                 if let account = accountStore.accountsWithAccountType(accountType).first as? ACAccount{
                     NSOperationQueue.mainQueue().addOperationWithBlock { completion(account: account) }

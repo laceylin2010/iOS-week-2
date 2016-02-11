@@ -82,9 +82,6 @@ class HomeViewController: UIViewController, UITableViewDataSource
         API.shared.GETTweets { (tweets) -> () in
             if let tweets = tweets {
                 self.dataSource = tweets
-//                for tweet in tweets {
-//                  print(tweet.text)
-//                    }
                 }
             
         API.shared.GETOAuthUser { (user) -> () in
@@ -93,16 +90,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
                     
                 }
             }
-    
-            
-            //        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
-//            if success  {
-//                if let tweets = tweets {
-//                    self.dataSource = tweets
-//                }
-//            }
-//            
-//        }
+
         }
 
     }
