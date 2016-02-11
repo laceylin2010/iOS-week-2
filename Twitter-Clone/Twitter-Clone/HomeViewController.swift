@@ -10,6 +10,9 @@ import UIKit
 
 class HomeViewController: UIViewController, UITableViewDataSource
 {
+    
+    var twitterUser: User?
+    
     @IBOutlet weak var tableView: UITableView!
     var dataSource = [Tweet]() {
         didSet {
@@ -34,9 +37,43 @@ class HomeViewController: UIViewController, UITableViewDataSource
         super.didReceiveMemoryWarning()
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == ProfileViewController.identity {
+            
+            if let profileViewController = segue.destinationViewController as? ProfileViewController {
+                profileViewController.dismiss = {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                // Set property on profileViewController with user
+                
+                profileViewController.user = twitterUser
+                
+            }
+            
+        } else if segue.identifier == TweetViewController.identity {
+            
+            if let tweetViewController = segue.destinationViewController as? TweetViewController {
+                
+                if let indexPath = self.tableView.indexPathForSelectedRow {
+                    let tweet = self.dataSource [indexPath.row]
+                    tweetViewController.tweet = tweet
+                }
+                
+            }
+            
+            
+        }
+    }
+    
     func setupTableView()
     {
         self.tableView.dataSource = self
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
     }
     
     func update()
@@ -52,7 +89,8 @@ class HomeViewController: UIViewController, UITableViewDataSource
             
         API.shared.GETOAuthUser { (user) -> () in
                 if let user = user {
-                    print(user.name)
+                    self.twitterUser = user
+                    
                 }
             }
     

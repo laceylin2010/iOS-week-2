@@ -32,18 +32,7 @@ class JSONParser
                 var tweets = [Tweet]()
                 
                     for tweetJSON in rootObject {
-                        
-                        if let
-                            text = tweetJSON["text"] as? String,
-                            id = tweetJSON["id_str"] as? String,
-                            userJSON = tweetJSON["user"] as? [String: AnyObject]{
-    
-                            let user = self.userFromTweetJSON(userJSON)
-                            let tweet = Tweet(text: text, id: id, user: user)
-                                
-                            
-                            tweets.append(tweet)
-                        }
+                        tweets.append(self.tweetFromTweetJSON(tweetJSON))
                     }
                     
                     //completion
@@ -66,6 +55,24 @@ class JSONParser
         guard let location = tweetJSON["location"] as? String else { fatalError("Failed to parse the location. Something is wrong") }
         
         return User(name: name, profileImageUrl: profileImageUrl, location: location)
+    }
+    
+    class func tweetFromTweetJSON(tweetJSON: [String : AnyObject]) -> Tweet
+    {
+        if let text = tweetJSON["text"] as? String,
+            id = tweetJSON["id_str"] as? String,
+            userJSON = tweetJSON["user"] as? [String: AnyObject] {
+                
+                var originalTweet: Tweet?
+                if let originalTweetJSON = tweetJSON["retweeted_status"] as? [String : AnyObject] {
+                    originalTweet = tweetFromTweetJSON(originalTweetJSON)
+                }
+                
+                let user = self.userFromTweetJSON(userJSON)
+                return Tweet(text: text, id: id, user: user, originalTweet: originalTweet)
+        }
+        
+        fatalError("Badly formatted JSON")
     }
 
     // Mark: first day, load JSON from bundle.
