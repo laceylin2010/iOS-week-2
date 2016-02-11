@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTableView()
-     
+        
     }
     
     override func viewWillAppear(animated: Bool)
@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
         super.viewWillAppear(animated)
         self.update()
     }
-
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -82,17 +82,17 @@ class HomeViewController: UIViewController, UITableViewDataSource
         API.shared.GETTweets { (tweets) -> () in
             if let tweets = tweets {
                 self.dataSource = tweets
-                }
+            }
             
-        API.shared.GETOAuthUser { (user) -> () in
+            API.shared.GETOAuthUser { (user) -> () in
                 if let user = user {
                     self.twitterUser = user
                     
                 }
             }
-
+            
         }
-
+        
     }
 }
 

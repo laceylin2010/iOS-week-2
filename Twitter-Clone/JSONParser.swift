@@ -18,33 +18,33 @@ class JSONParser
         dispatch_async(serializationQ) { () -> Void in
             //do your business here...
             
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            //call the completion here...
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                //call the completion here...
             })
         }
         
         NSOperationQueue().addOperationWithBlock { () -> Void in
-        
-        do {
-            if let rootObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
-                as? [[String : AnyObject]] {
             
-                var tweets = [Tweet]()
+            do {
+                if let rootObject = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
+                    as? [[String : AnyObject]] {
+                        
+                        var tweets = [Tweet]()
+                        
+                        for tweetJSON in rootObject {
+                            tweets.append(self.tweetFromTweetJSON(tweetJSON))
+                        }
+                        
+                        //completion
+                        
+                        completion (success: true, tweets: tweets)
+                }
                 
-                    for tweetJSON in rootObject {
-                        tweets.append(self.tweetFromTweetJSON(tweetJSON))
-                    }
-                    
-                    //completion
-                    
-                    completion (success: true, tweets: tweets)
-                    }
-
             } catch _ {
                 completion ( success: false, tweets: nil)
-                }
             }
         }
+    }
     
     //Mark helper Functions
     
@@ -74,7 +74,7 @@ class JSONParser
         
         fatalError("Badly formatted JSON")
     }
-
+    
     // Mark: first day, load JSON from bundle.
     
     class func JSONData() -> NSData
