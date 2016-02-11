@@ -14,6 +14,8 @@ class HomeViewController: UIViewController, UITableViewDataSource
     var twitterUser: User?
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     var dataSource = [Tweet]() {
         didSet {
             self.tableView.reloadData()
@@ -36,6 +38,17 @@ class HomeViewController: UIViewController, UITableViewDataSource
     {
         super.didReceiveMemoryWarning()
     }
+    
+    func setupTableView()
+    {
+        self.tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.dataSource = self
+
+        
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
@@ -67,14 +80,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
             
         }
     }
-    
-    func setupTableView()
-    {
-        self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-    }
+
     
     func update()
     {
@@ -101,14 +107,9 @@ extension HomeViewController
     
     func configureCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell
     {
-        let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath)
-        let tweet = self.dataSource[indexPath.row]
-        tweetCell.textLabel?.text = tweet.text
+        let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath:indexPath) as! TweetCell
+        tweetCell.tweet = self.dataSource[indexPath.row]
         
-        
-        if let user = tweet.user{
-            tweetCell.detailTextLabel?.text = user.name
-        }
         
         return tweetCell
         
@@ -123,5 +124,7 @@ extension HomeViewController
     {
         return self.configureCellForIndexPath(indexPath)
     }
+
 }
+
 

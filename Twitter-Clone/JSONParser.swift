@@ -53,8 +53,9 @@ class JSONParser
         guard let name = tweetJSON["name"] as? String else { fatalError("Failed to parse the name. Something is wrong with JSON") }
         guard let profileImageUrl = tweetJSON["profile_image_url"] as? String else { fatalError("Failed to parse the profile image url. Something is wrong") }
         guard let location = tweetJSON["location"] as? String else { fatalError("Failed to parse the location. Something is wrong") }
+        guard let screenName = tweetJSON["screen_name"] as? String else { fatalError ("Failed to parse the screen name") }
         
-        return User(name: name, profileImageUrl: profileImageUrl, location: location)
+        return User(name: name, profileImageUrl: profileImageUrl, location: location, screenName: screenName)
     }
     
     class func tweetFromTweetJSON(tweetJSON: [String : AnyObject]) -> Tweet
