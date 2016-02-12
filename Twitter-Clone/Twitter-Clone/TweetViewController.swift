@@ -59,7 +59,17 @@ class TweetViewController: UIViewController, Identity
     }
     
 
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == UserTimelineController.identity {
+            
+            if let userTimelineController = segue.destinationViewController as? UserTimelineController {
+                userTimelineController.user = tweet?.originalTweet?.user ?? tweet?.user
+            }
+        }
+    }
 }
 
 

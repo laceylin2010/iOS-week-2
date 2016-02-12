@@ -129,6 +129,7 @@ extension HomeViewController
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("TweetViewController", sender: nil)
     }
+    
 }
 
 
