@@ -8,12 +8,14 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
     var twitterUser: User?
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     var dataSource = [Tweet]() {
         didSet {
             self.tableView.reloadData()
@@ -23,7 +25,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupTableView()
-     
+        
     }
     
     override func viewWillAppear(animated: Bool)
@@ -31,11 +33,23 @@ class HomeViewController: UIViewController, UITableViewDataSource
         super.viewWillAppear(animated)
         self.update()
     }
-
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
+    
+    func setupTableView()
+    {
+        self.tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        self.tableView.estimatedRowHeight = 100
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.dataSource = self
+        self.tableView.delegate = self
+
+        
+    }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
@@ -67,14 +81,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
             
         }
     }
-    
-    func setupTableView()
-    {
-        self.tableView.dataSource = self
-        self.tableView.estimatedRowHeight = 100
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-    }
+
     
     func update()
     {
@@ -82,29 +89,17 @@ class HomeViewController: UIViewController, UITableViewDataSource
         API.shared.GETTweets { (tweets) -> () in
             if let tweets = tweets {
                 self.dataSource = tweets
-//                for tweet in tweets {
-//                  print(tweet.text)
-//                    }
-                }
+            }
             
-        API.shared.GETOAuthUser { (user) -> () in
+            API.shared.GETOAuthUser { (user) -> () in
                 if let user = user {
                     self.twitterUser = user
                     
                 }
             }
-    
             
-            //        JSONParser.tweetJSONFrom(JSONParser.JSONData()) { (success, tweets) -> () in
-//            if success  {
-//                if let tweets = tweets {
-//                    self.dataSource = tweets
-//                }
-//            }
-//            
-//        }
         }
-
+        
     }
 }
 
@@ -113,14 +108,9 @@ extension HomeViewController
     
     func configureCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell
     {
-        let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("tableCell", forIndexPath: indexPath)
-        let tweet = self.dataSource[indexPath.row]
-        tweetCell.textLabel?.text = tweet.text
+        let tweetCell = self.tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath:indexPath) as! TweetCell
+        tweetCell.tweet = self.dataSource[indexPath.row]
         
-        
-        if let user = tweet.user{
-            tweetCell.detailTextLabel?.text = user.name
-        }
         
         return tweetCell
         
@@ -135,5 +125,11 @@ extension HomeViewController
     {
         return self.configureCellForIndexPath(indexPath)
     }
+
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("TweetViewController", sender: nil)
+    }
+    
 }
+
 
