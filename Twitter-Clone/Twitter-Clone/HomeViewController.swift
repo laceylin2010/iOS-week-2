@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDataSource
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     
     var twitterUser: User?
@@ -45,6 +45,7 @@ class HomeViewController: UIViewController, UITableViewDataSource
         self.tableView.estimatedRowHeight = 100
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.dataSource = self
+        self.tableView.delegate = self
 
         
     }
@@ -125,6 +126,9 @@ extension HomeViewController
         return self.configureCellForIndexPath(indexPath)
     }
 
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("TweetViewController", sender: nil)
+    }
 }
 
 
